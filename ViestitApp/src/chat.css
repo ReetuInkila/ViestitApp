@@ -1,0 +1,10 @@
+.chat{
+    width: calc(100vw - var(--left-column-widht));
+    float: right;
+    
+} 
+.chat > li{
+    list-style-type: none;
+    padding: 1em;
+
+}

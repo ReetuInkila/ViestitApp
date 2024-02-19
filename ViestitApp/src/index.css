@@ -1,0 +1,16 @@
+:root {
+    --main-bg-color: lightblue;
+    --left-column-widht: 20em;
+}
+
+body{
+    margin: 0;
+    overflow: hidden;
+}
+.left-column {
+    width: var(--left-column-widht);
+    background-color: var(--main-bg-color);
+    height: 100vh;
+    float: left;
+    clear: left;
+}
