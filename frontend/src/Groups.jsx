@@ -1,6 +1,6 @@
 import './groups.css'
 import AddGroup from './AddGroup';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Groups = ({ setSelectedGroup }) => {
     const[newGroup, setNewGroup] = useState('')
@@ -15,7 +15,7 @@ const Groups = ({ setSelectedGroup }) => {
     };
 
     const handleNewGroup = () => {
-        if(newGroup.trim() != ''){
+        if(newGroup.trim() !== ''){
             const copy= [...groups];
             const newId = Math.max(...copy.map(group => group.id)) + 1
             copy.push({id:newId, name:newGroup})

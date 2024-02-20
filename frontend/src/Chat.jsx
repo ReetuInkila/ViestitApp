@@ -1,6 +1,6 @@
 import Message from './Message';
 import './chat.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Chat = ({ userName, selectedGroup }) => {
     const [message, setMessage] = useState('')
@@ -15,7 +15,7 @@ const Chat = ({ userName, selectedGroup }) => {
     }
 
     const sendMessage = (event) => {
-        if(userName.trim() != '' && selectedGroup){
+        if(userName.trim() !== '' && selectedGroup){
             const copy= [...messages];
             copy.push({group:selectedGroup, usr:userName, msg:message})
             setMessages(copy)
