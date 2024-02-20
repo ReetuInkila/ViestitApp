@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './index.css'
+
 import User from './User'
 import Groups from './Groups'
 import Chat from './Chat'
