@@ -25,7 +25,7 @@ jobs:
         run: |
           cd backend
           npm install
-          npm run build 
+          npm run start 
 
       - name: Zip artifact for deployment
         run: zip release.zip backend/* -r
