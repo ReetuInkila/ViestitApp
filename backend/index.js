@@ -12,6 +12,11 @@ let groups = [
     { id: 2, name: 'group2' },
     { id: 3, name: 'group3' }
 ]
+
+app.get('/', (request, response) => {
+    response.send('ViestitApp REST API')
+})
+
   
 app.get('/api/groups', (request, response) => {
     response.json(groups)
@@ -21,7 +26,7 @@ app.get('/api/messages', (request, response) => {
     response.json(messages)
 })
   
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
