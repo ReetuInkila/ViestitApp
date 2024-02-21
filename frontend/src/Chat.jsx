@@ -1,14 +1,20 @@
 import Message from './Message';
 import './chat.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Chat = ({ userName, selectedGroup }) => {
     const [message, setMessage] = useState('')
-    const [messages, setMessages] = useState([
-        {group:1, usr:'user1', msg:'Hello World!'},
-        {group:2, usr:'user2', msg:'Hello World!'},
-        {group:3, usr:'user3', msg:'Hello World!'}
-    ])
+    const [messages, setMessages] = useState([])
+
+    useEffect(() => {
+        console.log('effect')
+        axios
+        .get('https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages')
+        then(response => {
+            setMessages(response.data)
+        })  
+    }, [])
 
     const handleMsgChange = (event) => {
         setMessage(event.target.value)  
