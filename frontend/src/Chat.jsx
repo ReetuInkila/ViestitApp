@@ -8,7 +8,6 @@ const Chat = ({ userName, selectedGroup }) => {
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
-        console.log('effect')
         axios
         .get('https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages')
         .then(response => {

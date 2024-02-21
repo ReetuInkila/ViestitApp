@@ -1,5 +1,12 @@
 const express = require('express')
+var cors = require('cors')
 const app = express()
+
+
+                      
+app.use(cors({
+    origin: ['http://localhost:8080', 'https://viestit-frontend-rx347ght6q-lz.a.run.app/']
+}));
 
 let messages = [
     {group:1, usr:'user1', msg:'Hello World!'},
