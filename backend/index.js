@@ -5,7 +5,7 @@ const app = express()
 
                       
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://viestit-frontend-rx347ght6q-lz.a.run.app', 'https://viestitapp.inkilareetu.fi/']
+    origin: ['http://localhost:3000', 'https://viestit-frontend-rx347ght6q-lz.a.run.app', 'https://viestitapp.inkilareetu.fi']
 }));
 
 let messages = [
