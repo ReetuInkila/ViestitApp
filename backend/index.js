@@ -26,7 +26,7 @@ app.get('/api/messages', (request, response) => {
     response.json(messages)
 })
   
-const PORT = process.env.PORT || 3001
+const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
