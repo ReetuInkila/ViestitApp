@@ -1,4 +1,4 @@
-name: server to Cloud Run
+name: backend to Cloud Run
 on:
   push:
     branches:

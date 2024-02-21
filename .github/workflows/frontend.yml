@@ -1,5 +1,5 @@
 
-name: server to Cloud Run
+name: frontend to Cloud Run
 on:
   push:
     branches:
