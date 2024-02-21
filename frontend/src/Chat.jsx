@@ -11,7 +11,7 @@ const Chat = ({ userName, selectedGroup }) => {
         console.log('effect')
         axios
         .get('https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages')
-        then(response => {
+        .then(response => {
             setMessages(response.data)
         })  
     }, [])
