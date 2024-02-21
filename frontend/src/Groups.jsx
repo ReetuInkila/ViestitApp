@@ -1,14 +1,19 @@
 import './groups.css'
 import AddGroup from './AddGroup';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Groups = ({ setSelectedGroup }) => {
     const[newGroup, setNewGroup] = useState('')
-    const [groups, setGroups] = useState([
-        { id: 1, name: 'group1' },
-        { id: 2, name: 'group2' },
-        { id: 3, name: 'group3' }
-    ]);
+    const [groups, setGroups] = useState([]);
+
+    useEffect(() => {
+        axios
+        .get('https://viestit-backend-rx347ght6q-lz.a.run.app/api/groups')
+        .then(response => {
+            setGroups(response.data)
+        })  
+    }, [])
 
     const handleGroupClick = (groupId) => {
         setSelectedGroup(groupId);
