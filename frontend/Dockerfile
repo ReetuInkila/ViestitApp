@@ -1,13 +1,11 @@
-# First Stage
-FROM node:alpine as build-deps
-WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . ./
-RUN npm run build
+# Use the slim version of the node 14 image as our base
+FROM node:14-slim
 
-# Second Stage
-FROM nginx:1.12-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
+RUN mkdir -p usr/src/app
+WORKDIR /usr/src/app
+COPY . .
+RUN npm install -g serve
+RUN npm install
+RUN npm run build
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "-l", "8080", "./build"]
