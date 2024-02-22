@@ -55,11 +55,20 @@ app.post('/api/sendmessage', (request, response) => {
             response.status(500).json({ error: 'Failed to add message to the database' })
             return
         }
-        // If successful, return success response with the timestamp of added message
-        const timestamp = result.timestamp
-        response.status(201).json({ message: 'Message added successfully', timestamp:timestamp})
+        // If successful, retrieve the timestamp of added message
+        db.query("SELECT timestamp FROM messages WHERE id = ?", result.insertId, function(err, rows) {
+            if (err) {
+                console.error('Error retrieving timestamp from the database:', err)
+                response.status(500).json({ error: 'Failed to retrieve timestamp from the database' })
+                return
+            }
+            // Extract the timestamp from the query result
+            const timestamp = rows[0].timestamp
+            response.status(201).json({ message: 'Message added successfully', timestamp: timestamp })
+        })
     })
 })
+
 
 // Endpoint to add a new group
 app.post('/api/addgroup', (request, response) => {
