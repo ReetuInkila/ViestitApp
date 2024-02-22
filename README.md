@@ -16,11 +16,11 @@ Implement a simple messaging web app where you can send public text based messag
 
 The below list contains the minimum requirements that must be met.
 
-- [ ] The code (comments, variable and function names etc.) is in English
-- [ ] Each user is identified by a screen name.
-- [ ] You can send messages to users by creating a named group (like an inbox, with public name).
-- [ ] Users can read the messages in a given group by knowing the name of the group (no passwords required here, keep it simple).
-- [ ] The contents of a given group must be stored somewhere persistent (real time delivery is not required).
+- [x] The code (comments, variable and function names etc.) is in English
+- [x] Each user is identified by a screen name.
+- [x] You can send messages to users by creating a named group (like an inbox, with public name).
+- [x] Users can read the messages in a given group by knowing the name of the group (no passwords required here, keep it simple).
+- [x] The contents of a given group must be stored somewhere persistent (real time delivery is not required).
 
 ### Level II: Secure Messaging (Advanced)
 
