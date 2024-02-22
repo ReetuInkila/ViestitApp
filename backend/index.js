@@ -42,7 +42,7 @@ app.post('/api/sendmessage', (request, response) => {
         return;
     }
 
-    const message = { group_id: groupId, sender, text }; // Create message object to insert into database
+    const message = { groupId, sender, text }; // Create message object to insert into database
     db.query("INSERT INTO messages SET ?", message, function (err, result) {
         if (err) {
             console.error('Error adding message to the database:', err);
