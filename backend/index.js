@@ -1,24 +1,20 @@
 const express = require('express')
 var cors = require('cors')
+var mysql = require('mysql');
 const app = express()
-
-
-                      
+                    
 app.use(cors({
     origin: ['http://localhost:3000', 'https://viestit-frontend-rx347ght6q-lz.a.run.app', 'https://viestitapp.inkilareetu.fi']
-}));
+}))
 
-let messages = [
-    {group:1, usr:'user1', msg:'Hello World!'},
-    {group:2, usr:'user2', msg:'Hello World!'},
-    {group:3, usr:'user3', msg:'Hello World!'}
-]
 
-let groups = [
-    { id: 1, name: 'group1' },
-    { id: 2, name: 'group2' },
-    { id: 3, name: 'group3' }
-]
+var con = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PSWD,
+    database: process.env.DB_NAME
+})
+
 
 app.get('/', (request, response) => {
     response.send('ViestitApp REST API')
@@ -26,11 +22,25 @@ app.get('/', (request, response) => {
 
   
 app.get('/api/groups', (request, response) => {
-    response.json(groups)
+    con.query("SELECT * FROM groups", function (err, result, fields) {
+        if (err) {
+            console.error('Error fetching groups from the database:', err)
+            response.status(500).json({ error: 'Failed to fetch groups from the database' })
+            return
+        }
+        response.json(result)
+    })
 })
 
 app.get('/api/messages', (request, response) => {
-    response.json(messages)
+    con.query("SELECT * FROM messages", function (err, result, fields) {
+        if (err) {
+            console.error('Error fetching messages from the database:', err)
+            response.status(500).json({ error: 'Failed to fetch messages from the database' })
+            return
+        }
+        response.json(result)
+    })
 })
   
 const PORT = 8080
