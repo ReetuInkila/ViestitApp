@@ -71,8 +71,13 @@ app.post('/api/addgroup', (request, response) => {
         return
     }
 
+    // Generate UUID
+
+    const id = generateUUID()
+
+
     // Create group object to insert into database
-    const group = { name }
+    const group = { id, name }
 
     // Insert group into database
     db.query("INSERT INTO groups SET ?", group, function (err, result) {
@@ -137,3 +142,17 @@ const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+console.log(generateUUID());
