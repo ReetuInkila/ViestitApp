@@ -4,13 +4,12 @@ const User = ({userName, handleNameChange}) => {
 
     return (
         <div className="user">
-            <label>Username : 
-                <input 
-                    id="usr"
-                    value={userName}
-                    onChange={handleNameChange}
-                />
-            </label>
+            <input 
+                id="usr"
+                placeholder="Username"
+                value={userName}
+                onChange={handleNameChange}
+            />
         </div>
     )
 }

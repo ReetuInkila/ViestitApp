@@ -7,6 +7,7 @@ const Message = ({message, setMessage, sendMessage}) => {
             <input 
                 id="usr"
                 value={message}
+                placeholder="Message"
                 onChange={(e) => setMessage(e.target.value)}
             />
             <button onClick={sendMessage}>send</button>

@@ -32,15 +32,13 @@ const Groups = ({ setSelectedGroup }) => {
     }
 
     return (
-        <div className="selectGroup">
-            <label>Group : 
-                <input 
-                    id="group"
-                    value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
-                />
-            </label>
-            
+        <div className="selectGroup"> 
+            <input 
+                id="group"
+                value={groupName}
+                placeholder="Group name"
+                onChange={(e) => setGroupName(e.target.value)}
+            />
             <button onClick={handleGroup}>Select</button>
         </div>
     );
