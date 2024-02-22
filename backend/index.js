@@ -34,6 +34,25 @@ app.get('/api/messages', (request, response) => {
     })
 })
 
+// Endpoint to add a message to a group
+app.post('/api/sendmessage', (request, response) => {
+    const { groupId, sender, text } = request.body; // Extract groupId, sender, and content from request body
+    if (!groupId || !sender || !text) {
+        response.status(400).json({ error: 'groupId, sender, and text are required fields' });
+        return;
+    }
+
+    const message = { group_id: groupId, sender, text }; // Create message object to insert into database
+    db.query("INSERT INTO messages SET ?", message, function (err, result) {
+        if (err) {
+            console.error('Error adding message to the database:', err);
+            response.status(500).json({ error: 'Failed to add message to the database' });
+            return;
+        }
+        response.status(201).json({ message: 'Message added successfully' });
+    });
+});
+
 const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

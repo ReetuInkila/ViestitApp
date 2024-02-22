@@ -20,11 +20,24 @@ const Chat = ({ userName, selectedGroup }) => {
     }
 
     const sendMessage = (event) => {
-        if(userName.trim() !== '' && selectedGroup){
-            const copy= [...messages];
-            copy.push({group:selectedGroup, usr:userName, msg:message})
-            setMessages(copy)
-            setMessage('')
+        event.preventDefault(); // Prevent the default form submission behavior
+        if (userName.trim() !== '' && selectedGroup && message.trim() !== '') {
+            const newMessage = {
+                groupId: selectedGroup,
+                sender: userName,
+                text: message
+            };
+            // Send the new message to the backend
+            axios
+                .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages', newMessage)
+                .then(response => {
+                    // Update the local state with the new message
+                    setMessages([...messages, newMessage]);
+                    setMessage('');
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                });
         }
     }
 
