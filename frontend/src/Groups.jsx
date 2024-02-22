@@ -20,14 +20,27 @@ const Groups = ({ setSelectedGroup }) => {
     };
 
     const handleNewGroup = () => {
-        if(newGroup.trim() !== ''){
-            const copy= [...groups];
-            const newId = Math.max(...copy.map(group => group.id)) + 1
-            copy.push({id:newId, name:newGroup})
-            setGroups(copy)
-            setNewGroup('')
+        if (newGroup.trim() !== '') {
+            const newGroupData = {
+                name: newGroup
+            };
+    
+            // Send the new group to the backend
+            axios
+                .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/addgroup', newGroupData)
+                .then(response => {
+                    const newGroupId = response.data.id // Extract ID from response
+                    const copy = [...groups]
+                    copy.push({ id: newGroupId, name: newGroup }) // Use the ID received from the server
+                    setGroups(copy)
+                    setNewGroup('')
+                })
+                .catch(error => {
+                    console.error('Error adding group:', error)
+                })
         }
-    };
+    }
+    
 
     return (
         <div className="groups">

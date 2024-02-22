@@ -57,6 +57,36 @@ app.post('/api/sendmessage', (request, response) => {
     })
 })
 
+// Endpoint to add a new group
+app.post('/api/addgroup', (request, response) => {
+    const { name } = request.body // Extract name from request body
+
+    // Check if name exists
+    if (!name) {
+        response.status(400).json({ error: 'Name is a required field' })
+        return
+    }
+
+    // Create group object to insert into database
+    const group = { name }
+
+    // Insert group into database
+    db.query("INSERT INTO groups SET ?", group, function (err, result) {
+        if (err) {
+            // If there's an error, log it and return an error response
+            console.error('Error adding group to the database:', err)
+            response.status(500).json({ error: 'Failed to add group to the database' })
+            return
+        }
+
+        // If successful, return success response with the ID of the newly added group
+        const newGroupId = result.insertId
+        response.status(201).json({ message: 'Group added successfully', id: newGroupId })
+    })
+})
+
+
+
 const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
