@@ -50,8 +50,9 @@ app.post('/api/sendmessage', (request, response) => {
     }
 
     const encryptedText = CryptoJS.AES.encrypt(text, process.env.ENCRYPTION_KEY).toString()
+    const encryptedSender= CryptoJS.AES.encrypt(sender, process.env.ENCRYPTION_KEY).toString()
 
-    const message = { groupId, sender, text:encryptedText } // Create message object to insert into database
+    const message = { groupId, sender:encryptedSender, text:encryptedText } // Create message object to insert into database
     db.query("INSERT INTO messages SET ?", message, function (err, result) {
         if (err) {
             console.error('Error adding message to the database:', err)
@@ -146,7 +147,7 @@ app.get('/api/messages/:groupId', (request, response) => {
         const decryptedMessages = result.map(message => {
             return {
                 groupId: message.groupId,
-                sender: message.sender,
+                sender: CryptoJS.AES.decrypt(message.sender, process.env.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8),
                 text: CryptoJS.AES.decrypt(message.text, process.env.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8),
                 timestamp: message.timestamp
             };
@@ -157,13 +158,10 @@ app.get('/api/messages/:groupId', (request, response) => {
     })
 })
 
-
 const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
-
-
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -174,7 +172,3 @@ function generateUUID() {
     });
     return uuid;
 }
-
-let j = CryptoJS.AES.encrypt('Hello', 'secret key 123').toString()
-console.log(j)
-console.log(CryptoJS.AES.decrypt(j, "secret key  123").toString(CryptoJS.enc.Utf8))
