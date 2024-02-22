@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const db = require('./db') // Import the database connection
+const CryptoJS = require("crypto-js");
 require('dotenv').config()
 
 const app = express()
@@ -48,7 +49,9 @@ app.post('/api/sendmessage', (request, response) => {
         return
     }
 
-    const message = { groupId, sender, text } // Create message object to insert into database
+    const encryptedText = CryptoJS.AES.encrypt(text, process.env.ENCRYPTION_KEY).toString()
+
+    const message = { groupId, sender, text:encryptedText } // Create message object to insert into database
     db.query("INSERT INTO messages SET ?", message, function (err, result) {
         if (err) {
             console.error('Error adding message to the database:', err)
@@ -81,9 +84,7 @@ app.post('/api/addgroup', (request, response) => {
     }
 
     // Generate UUID
-
     const id = generateUUID()
-
 
     // Create group object to insert into database
     const group = { id, name }
@@ -141,8 +142,18 @@ app.get('/api/messages/:groupId', (request, response) => {
             return
         }
 
-        // If messages are found, return them in the response
-        response.json(result)
+        // Decrypt the text before sending it in the response
+        const decryptedMessages = result.map(message => {
+            return {
+                groupId: message.groupId,
+                sender: message.sender,
+                text: CryptoJS.AES.decrypt(message.text, process.env.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8),
+                timestamp: message.timestamp
+            };
+        });
+
+        // Send the decrypted messages in the response
+        response.json(decryptedMessages);
     })
 })
 
@@ -163,3 +174,7 @@ function generateUUID() {
     });
     return uuid;
 }
+
+let j = CryptoJS.AES.encrypt('Hello', 'secret key 123').toString()
+console.log(j)
+console.log(CryptoJS.AES.decrypt(j, "secret key  123").toString(CryptoJS.enc.Utf8))
