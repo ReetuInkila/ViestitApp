@@ -15,7 +15,7 @@ const Chat = ({ selectedGroup, messages, setMessages }) => {
                     console.error('Error fetching messages:', error)
                 })
         }
-    }, [selectedGroup])
+    }, [selectedGroup, setMessages])
     
     return (
         <div className="chat">
