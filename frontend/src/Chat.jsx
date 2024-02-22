@@ -30,8 +30,8 @@ const Chat = ({ userName, selectedGroup }) => {
 
     return (
         <div className="chat">
-            {messages.filter(msg=>msg.group===selectedGroup).map((message, i)=>(
-                <li key={i}>{message.usr}: {message.msg}</li>
+            {messages.filter(msg=>msg.groupId===selectedGroup).map((message, i)=>(
+                <li key={i}>{message.sender}: {message.text}</li>
             ))}
             <Message msg={message} handleMsgChange={handleMsgChange} sendMessage={sendMessage}/>
         </div>

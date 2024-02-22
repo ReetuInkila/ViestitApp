@@ -1,6 +1,7 @@
 const express = require('express')
 var cors = require('cors')
-var mysql = require('mysql');
+var mysql = require('mysql')
+require('dotenv').config()
 const app = express()
                     
 app.use(cors({
@@ -22,7 +23,7 @@ app.get('/', (request, response) => {
 
   
 app.get('/api/groups', (request, response) => {
-    con.query("SELECT * FROM groups", function (err, result, fields) {
+    con.query("SELECT * FROM groups;", function (err, result, fields) {
         if (err) {
             console.error('Error fetching groups from the database:', err)
             response.status(500).json({ error: 'Failed to fetch groups from the database' })
@@ -33,7 +34,7 @@ app.get('/api/groups', (request, response) => {
 })
 
 app.get('/api/messages', (request, response) => {
-    con.query("SELECT * FROM messages", function (err, result, fields) {
+    con.query("SELECT * FROM messages;", function (err, result, fields) {
         if (err) {
             console.error('Error fetching messages from the database:', err)
             response.status(500).json({ error: 'Failed to fetch messages from the database' })
