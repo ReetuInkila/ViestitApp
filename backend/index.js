@@ -163,5 +163,3 @@ function generateUUID() {
     });
     return uuid;
 }
-
-console.log(generateUUID());
