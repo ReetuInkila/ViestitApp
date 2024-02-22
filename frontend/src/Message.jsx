@@ -1,13 +1,13 @@
 import './message.css'
 
-const Message = ({msg, handleMsgChange, sendMessage}) => {
+const Message = ({message, setMessage, sendMessage}) => {
 
     return (
         <div className="message">
             <input 
                 id="usr"
-                value={msg}
-                onChange={handleMsgChange}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
             />
             <button onClick={sendMessage}>send</button>
         </div>

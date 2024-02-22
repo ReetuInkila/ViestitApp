@@ -1,15 +1,14 @@
 import './groups.css'
-import SelectGroup from './SelectGroup';
 import { useState } from 'react'
 import axios from 'axios'
 
 const Groups = ({ setSelectedGroup }) => {
-    const[groupName, setGroupName] = useState('')
+    const [groupName, setGroupName] = useState('')
 
-    const handleNewGroup = () => {
+    const handleGroup = () => {
         if (groupName.trim() !== '') {
             const groupData = {
-                name: groupName
+                name: groupName.trim()
             }
             axios
                 .get(`https://viestit-backend-rx347ght6q-lz.a.run.app/api/groupid/${groupName}`)
@@ -31,12 +30,18 @@ const Groups = ({ setSelectedGroup }) => {
                 })
         }
     }
-    
-    
 
     return (
-        <div className="group">
-            <SelectGroup groupName={groupName} setGroupName={setGroupName} handleGroup={handleNewGroup}/>
+        <div className="selectGroup">
+            <label>Group : 
+                <input 
+                    id="group"
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
+                />
+            </label>
+            
+            <button onClick={handleGroup}>Select</button>
         </div>
     );
 };

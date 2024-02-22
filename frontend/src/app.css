@@ -1,0 +1,12 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-direction: row;
+    height: 4em
+}
