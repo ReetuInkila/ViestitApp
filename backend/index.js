@@ -86,6 +86,48 @@ app.post('/api/addgroup', (request, response) => {
 })
 
 
+// Endpoint to get group ID by name
+app.get('/api/groupid/:name', (request, response) => {
+    const groupName = request.params.name // Extract group name from request parameters
+
+    // Query the database to find the group ID by name
+    db.query("SELECT id FROM groups WHERE name = ?", groupName, function (err, result) {
+        if (err) {
+            // If there's an error, log it and return an error response
+            console.error('Error fetching group ID from the database:', err)
+            response.status(500).json({ error: 'Failed to fetch group ID from the database' })
+            return
+        }
+
+        // If the group is found, return its ID
+        if (result.length > 0) {
+            const groupId = result[0].id
+            response.json({ groupId })
+        } else {
+            // If the group is not found, return a 404 Not Found response
+            response.status(404).json({ error: 'Group not found' })
+        }
+    })
+})
+
+// Endpoint to fetch messages by group ID
+app.get('/api/messages/:groupId', (request, response) => {
+    const groupId = request.params.groupId // Extract group ID from request parameters
+
+    // Query the database to fetch messages by group ID
+    db.query("SELECT * FROM messages WHERE groupId = ?", groupId, function (err, result) {
+        if (err) {
+            // If there's an error, log it and return an error response
+            console.error('Error fetching messages from the database:', err)
+            response.status(500).json({ error: 'Failed to fetch messages from the database' })
+            return
+        }
+
+        // If messages are found, return them in the response
+        response.json(result)
+    })
+})
+
 
 const PORT = 8080
 app.listen(PORT, () => {

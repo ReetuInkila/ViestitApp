@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import User from './User'
 import Groups from './Groups'
@@ -6,17 +6,11 @@ import Chat from './Chat'
 
 const App = () => {
     const [userName, setUserName] = useState('')
-    const [selectedGroup, setSelectedGroup] = useState('')
+    const [selectedGroup, setSelectedGroup] = useState(null)
 
     const handleNameChange = (event) => {
         setUserName(event.target.value)  
     }
-
-    useEffect(() => {
-        //console.log(selectedGroup)
-    },[selectedGroup]);
-
-
 
     return (
         <div>

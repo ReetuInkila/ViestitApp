@@ -8,12 +8,18 @@ const Chat = ({ userName, selectedGroup }) => {
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
-        axios
-        .get('https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages')
-        .then(response => {
-            setMessages(response.data)
-        })  
-    }, [])
+        if (selectedGroup) {
+            axios
+                .get(`https://viestit-backend-rx347ght6q-lz.a.run.app/api/messages/${selectedGroup}`)
+                .then(response => {
+                    setMessages(response.data)
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error)
+                })
+        }
+    }, [selectedGroup])
+    
 
     const handleMsgChange = (event) => {
         setMessage(event.target.value)  
