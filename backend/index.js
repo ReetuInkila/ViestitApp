@@ -16,6 +16,7 @@ app.get('/', (request, response) => {
     response.send('ViestitApp REST API')
 })
 
+/* Used for debugging
 app.get('/api/groups', (request, response) => {
     db.query("SELECT * FROM groups", function (err, result, fields) {
         if (err) {
@@ -37,6 +38,7 @@ app.get('/api/messages', (request, response) => {
         response.json(result)
     })
 })
+*/
 
 // Endpoint to add a message to a group
 app.post('/api/sendmessage', (request, response) => {
