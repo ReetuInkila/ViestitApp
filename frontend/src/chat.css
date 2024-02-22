@@ -7,8 +7,9 @@
     list-style-type: none;
     padding: 0.5em 0.5em 0 0.5em;
     margin: 1em;
-    border: 1px solid #ddd;
+    border: 1px solid var(--main-color);
     border-radius: 10px;
+    background-color: white;
 }
 .timestamp {
     margin: 0;

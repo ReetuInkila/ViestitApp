@@ -1,7 +1,8 @@
 :root {
-    --main-bg-color: lightblue;
+    --main-color: #42572e;
 }
 body{
     margin: 0;
     overflow: hidden;
+    background-image: url('./background.svg');
 }

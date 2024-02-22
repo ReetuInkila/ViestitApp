@@ -5,8 +5,28 @@
 }
 
 .header {
-    background-color: var(--main-bg-color);
     display: flex;
     flex-direction: row;
-    height: 4em
+    padding: 1em;
+}
+
+input {
+    flex-grow: 1;
+    border-color: var(--main-color);
+    border-radius: 14px;
+    font-size: large;
+    padding: 0.5em;
+    border-width: 1px;
+}
+
+button {
+    color: #fff;
+    padding: 0.5em;
+    background-color: var(--main-color);
+    background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: large;
+    border: 0;
+    cursor: pointer;
 }
