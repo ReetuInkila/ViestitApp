@@ -26,7 +26,11 @@ const App = () => {
             };
             // Send the new message to the backend
             axios
-                .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/sendmessage', newMessage)
+                .post('http://localhost:8080/api/sendmessage', newMessage)
+                .then(response => {
+                    const newTimestamp = response.data.timestamp
+                    newMessage.timestamp = newTimestamp
+                })
                 .catch(error => {
                     console.error('Error sending message:', error)
                 })

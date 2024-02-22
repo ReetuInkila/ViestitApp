@@ -55,7 +55,9 @@ app.post('/api/sendmessage', (request, response) => {
             response.status(500).json({ error: 'Failed to add message to the database' })
             return
         }
-        response.status(201).json({ message: 'Message added successfully' })
+        // If successful, return success response with the timestamp of added message
+        const timestamp = result.timestamp
+        response.status(201).json({ message: 'Message added successfully', timestamp:timestamp})
     })
 })
 
@@ -117,7 +119,7 @@ app.get('/api/messages/:groupId', (request, response) => {
     const groupId = request.params.groupId // Extract group ID from request parameters
 
     // Query the database to fetch messages by group ID
-    db.query("SELECT * FROM messages WHERE groupId = ?", groupId, function (err, result) {
+    db.query("SELECT groupId, sender, text, timestamp FROM messages WHERE groupId = ?", groupId, function (err, result) {
         if (err) {
             // If there's an error, log it and return an error response
             console.error('Error fetching messages from the database:', err)
