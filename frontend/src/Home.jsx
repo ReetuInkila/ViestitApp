@@ -1,27 +1,22 @@
 import { useState } from 'react'
 import './home.css'
-import User from './Header/User'
 import Groups from './Header/Groups'
 import Chat from './Chat/Chat'
 import Message from './MessageField/Message'
 import axios from 'axios'
 
-const Home = () => {
-    const [userName, setUserName] = useState('')
+const Home = ({user}) => {
     const [selectedGroup, setSelectedGroup] = useState(null)
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
 
-    const handleNameChange = (event) => {
-        setUserName(event.target.value)  
-    }
 
     const sendMessage = (event) => {
         event.preventDefault() // Prevent the default form submission behavior
-        if (userName.trim() !== '' && selectedGroup && message.trim() !== '') {
+        if ( selectedGroup && message.trim() !== '') {
             const newMessage = {
                 groupId: selectedGroup,
-                sender: userName,
+                sender: user,
                 text: message
             };
             // Send the new message to the backend
@@ -43,7 +38,6 @@ const Home = () => {
         <div className='content'>
             <div className='header'>
                 <Groups setSelectedGroup={setSelectedGroup}/>
-                <User userName={userName} handleNameChange={handleNameChange}/>
             </div>
             <Chat selectedGroup={selectedGroup} messages={messages} setMessages={setMessages}/>
             <Message message={message} setMessage={setMessage} sendMessage={sendMessage}/>

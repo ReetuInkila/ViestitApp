@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('')
 
   return (
     <div className="App">

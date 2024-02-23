@@ -27,19 +27,17 @@ const Login = ({setUser, setLoggedIn}) => {
         password: password
     };
     axios
-        .post('http://localhost:8080/api/login', user)
+        .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/login', user)
         .then(response => {
             setError(response.data.message)
             setLoggedIn(true)
-            setUser({username:username, id:response.data.id})
+            setUser(username)
             setUsername('')
             setPassword('')
         })
         .catch(error => {
-            setError(error.response.data.message)
+            setError(error.response.data.error)
         })
-
-
   };
 
   const onSignUp = () => {
@@ -62,7 +60,7 @@ const Login = ({setUser, setLoggedIn}) => {
         password: password
     };
     axios
-        .post('http://localhost:8080/api/register', newUser)
+        .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/register', newUser)
         .then(response => {
             setError(response.data.message)
             setUsername('')
@@ -79,12 +77,18 @@ const Login = ({setUser, setLoggedIn}) => {
         <input
           value={username}
           placeholder="Enter your username here"
-          onChange={(ev) => setUsername(ev.target.value)}
+          onChange={(ev) => {
+            setUsername(ev.target.value)
+            setError('')
+        }}
         />
         <input
           value={password}
           placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
+          onChange={(ev) => {
+            setPassword(ev.target.value)
+            setError('')
+          }}
         />
         <br/>
         <label className="errorLabel">{error}</label>
