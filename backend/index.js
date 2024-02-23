@@ -41,6 +41,37 @@ app.get('/api/messages', (request, response) => {
 })
 */
 
+
+// Endpoint to login
+app.post('/api/login', (request, response) => {
+    const { username, password } = request.body
+    if (!username || !password ) {
+        response.status(400).json({ error: 'Fill all fileds' })
+        return
+    }
+
+    const encryptedUsername = CryptoJS.AES.encrypt(username, process.env.ENCRYPTION_KEY).toString()
+    const encryptedPassword= CryptoJS.AES.encrypt(password, process.env.ENCRYPTION_KEY).toString()
+
+    const params = [encryptedUsername]
+    db.query("SELECT * FROM users WHERE username = ?", params, function (err, result) {
+        if (err) {
+            response.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        if (result.length === 0) {
+            response.status(401).json({ error: 'Invalid username or password' });
+            return;
+        }
+        const user = result[0];
+        if (user.password === encryptedPassword) {
+            response.status(200).json({ message: 'Logged in successfully' });
+        } else {
+            response.status(401).json({ error: 'Invalid username or password' });
+        }
+    })
+})
+
 // Endpoint to add a message to a group
 app.post('/api/sendmessage', (request, response) => {
     const { groupId, sender, text } = request.body // Extract groupId, sender, and content from request body
