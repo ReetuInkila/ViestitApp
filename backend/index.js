@@ -41,6 +41,75 @@ app.get('/api/messages', (request, response) => {
 })
 */
 
+
+// Endpoint to login
+app.post('/api/login', (request, response) => {
+    const { username, password } = request.body
+    if (!username || !password ) {
+        response.status(400).json({ error: 'Fill all fileds' })
+        return
+    }
+
+    const encryptedUsername = CryptoJS.HmacSHA512(username, process.env.ENCRYPTION_KEY).toString()
+    const encryptedPassword = CryptoJS.HmacSHA512(password, process.env.ENCRYPTION_KEY).toString()
+
+    const params = [encryptedUsername]
+    db.query("SELECT * FROM users WHERE username = ?", params, function (err, result) {
+        if (err) {
+            response.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        if (result.length === 0) {
+            response.status(401).json({ error: 'Invalid username or password' });
+            return;
+        }
+        const user = result[0];
+        if (user.password === encryptedPassword) {
+            response.status(200).json({ message: 'Logged in successfully', userId:user.id });
+        } else {
+            response.status(401).json({ error: 'Invalid username or password' });
+        }
+    })
+})
+
+// Endpoint to register user
+app.post('/api/register', (request, response) => {
+    const { username, password } = request.body;
+    if (!username || !password) {
+        response.status(400).json({ error: 'Fill all fields' });
+        return;
+    }
+
+    const id = generateUUID()
+    const encryptedUsername = CryptoJS.HmacSHA512(username, process.env.ENCRYPTION_KEY).toString()
+    const encryptedPassword = CryptoJS.HmacSHA512(password, process.env.ENCRYPTION_KEY).toString()
+
+
+    // Check if username is taken
+    db.query("SELECT username FROM users WHERE username = ?", [encryptedUsername], function (err, result) {
+        if (err) {
+            console.error('Error registering user:', err);
+            response.status(500).json({ error: 'Failed to register user' });
+            return;
+        }
+        if(result.length>0){
+            response.status(409).json({ message: 'Username already exists' });
+        }else{
+            // Insert the new user into the database
+            const insertQuery = "INSERT INTO users (id, username, password) VALUES ( ?, ?, ?)";
+            db.query(insertQuery, [id, encryptedUsername, encryptedPassword], function (err, result) {
+                if (err) {
+                    // Handle other errors
+                    console.error('Error registering user:', err);
+                    response.status(500).json({ error: 'Failed to register user' });
+                    return;
+                }
+                response.status(201).json({ message: 'User registered successfully' });
+            });   
+        }
+    });
+});
+
 // Endpoint to add a message to a group
 app.post('/api/sendmessage', (request, response) => {
     const { groupId, sender, text } = request.body // Extract groupId, sender, and content from request body
@@ -163,12 +232,18 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-function generateUUID() {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+function generateUUID() { // Public Domain/MIT
+    var d = new Date().getTime();//Timestamp
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16;//random number between 0 and 16
+        if(d > 0){//Use timestamp until depleted
+            r = (d + r)%16 | 0;
+            d = Math.floor(d/16);
+        } else {//Use microseconds since page-load if supported
+            r = (d2 + r)%16 | 0;
+            d2 = Math.floor(d2/16);
+        }
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
-    return uuid;
 }
