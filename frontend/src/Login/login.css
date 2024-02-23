@@ -1,0 +1,17 @@
+.errorLabel {
+    font-weight: bolder;
+    color: var(--main-color);
+}
+fieldset{
+    max-width: 20em;
+    background-color: white;
+    margin: 1em;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--main-color);
+}
+h1{
+    margin-left: 0.5em;
+}
