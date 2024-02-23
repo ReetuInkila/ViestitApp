@@ -28,9 +28,9 @@ In order to improve overall privacy and security, even if someone has access to 
 
 These are additional requirements, and you may choose to implement all, none, or only a subset of them. you may need to extend some of the Level I requirenments for reading and sending messages to be able to implement all of these.
 
-- [ ] Which users there are (the screen names).
-- [ ] Which groups there are (the names).
-- [ ] Who sent messages to which group.
+- [x] Which users there are (the screen names).
+- [x] Which groups there are (the names).
+- [x] Who sent messages to which group.
 - [x] What the messages are (their text content).
 - [ ] How many messages are there on average per user and/or group.
 - [ ] Information needed to successfully join a group uninvited (access to this info would bypass the previous requirements)
