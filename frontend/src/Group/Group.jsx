@@ -2,7 +2,7 @@ import './group.css'
 import { useState } from 'react'
 import axios from 'axios'
 
-const Groups = ({ setSelectedGroup }) => {
+const Groups = ({ setSelectedGroup, onLogout }) => {
     const [groupName, setGroupName] = useState('')
 
     const handleGroup = () => {
@@ -43,6 +43,7 @@ const Groups = ({ setSelectedGroup }) => {
                 onChange={(e) => setGroupName(e.target.value)}
             />
             <button onClick={handleGroup}>Select</button>
+            <button id='logout' onClick={onLogout}>Logout</button>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-const Login = ({setUser, setLoggedIn}) => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -30,8 +30,7 @@ const Login = ({setUser, setLoggedIn}) => {
         .post(`${process.env.REACT_APP_API_URL}/login`, user)
         .then(response => {
             setError(response.data.message)
-            setLoggedIn(true)
-            setUser(username)
+            onLogin(username)
             setUsername('')
             setPassword('')
         })

@@ -5,7 +5,7 @@ import Chat from './Chat/Chat'
 import Message from './MessageField/Message'
 import axios from 'axios'
 
-const Home = ({user}) => {
+const Home = ({ user, onLogout }) => {
     const [selectedGroup, setSelectedGroup] = useState(null)
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
@@ -36,7 +36,7 @@ const Home = ({user}) => {
 
     return (
         <div className='content'>
-            <Groups setSelectedGroup={setSelectedGroup}/>
+            <Groups setSelectedGroup={setSelectedGroup} onLogout={onLogout}/>
             <Chat selectedGroup={selectedGroup} messages={messages} setMessages={setMessages}/>
             <Message message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>
