@@ -21,7 +21,7 @@ const Home = ({user}) => {
             };
             // Send the new message to the backend
             axios
-                .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/sendmessage', newMessage)
+                .post(`${process.env.REACT_APP_API_URL}/sendmessage`, newMessage)
                 .then(response => {
                     const newTimestamp = response.data.timestamp
                     newMessage.timestamp = newTimestamp

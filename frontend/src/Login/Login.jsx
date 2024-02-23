@@ -27,7 +27,7 @@ const Login = ({setUser, setLoggedIn}) => {
         password: password
     };
     axios
-        .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/login', user)
+        .post(`${process.env.REACT_APP_API_URL}/login`, user)
         .then(response => {
             setError(response.data.message)
             setLoggedIn(true)
@@ -60,7 +60,7 @@ const Login = ({setUser, setLoggedIn}) => {
         password: password
     };
     axios
-        .post('https://viestit-backend-rx347ght6q-lz.a.run.app/api/register', newUser)
+        .post(`${process.env.REACT_APP_API_URL}/register`, newUser)
         .then(response => {
             setError(response.data.message)
             setUsername('')
