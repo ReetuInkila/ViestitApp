@@ -1,4 +1,4 @@
-import './groups.css'
+import './group.css'
 import { useState } from 'react'
 import axios from 'axios'
 

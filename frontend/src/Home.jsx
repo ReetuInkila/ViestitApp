@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './home.css'
-import Groups from './Header/Groups'
+import Groups from './Group/Group'
 import Chat from './Chat/Chat'
 import Message from './MessageField/Message'
 import axios from 'axios'
@@ -36,9 +36,7 @@ const Home = ({user}) => {
 
     return (
         <div className='content'>
-            <div className='header'>
-                <Groups setSelectedGroup={setSelectedGroup}/>
-            </div>
+            <Groups setSelectedGroup={setSelectedGroup}/>
             <Chat selectedGroup={selectedGroup} messages={messages} setMessages={setMessages}/>
             <Message message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>
