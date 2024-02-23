@@ -30,13 +30,12 @@ const App = () => {
                 .then(response => {
                     const newTimestamp = response.data.timestamp
                     newMessage.timestamp = newTimestamp
+                    setMessages([...messages, newMessage])
+                    setMessage('')
                 })
                 .catch(error => {
                     console.error('Error sending message:', error)
                 })
-            
-            setMessages([...messages, newMessage])
-            setMessage('')
         }
     }
 
