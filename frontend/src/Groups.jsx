@@ -26,6 +26,9 @@ const Groups = ({ setSelectedGroup }) => {
                             .catch(error => {
                                 console.error('Error adding group:', error)
                             })
+                    }else{
+                        setSelectedGroup(null)
+                        setGroupName('')
                     }
                 })
         }

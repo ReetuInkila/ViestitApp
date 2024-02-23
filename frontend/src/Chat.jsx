@@ -14,6 +14,8 @@ const Chat = ({ selectedGroup, messages, setMessages }) => {
                 .catch(error => {
                     console.error('Error fetching messages:', error)
                 })
+        }else{
+            setMessages([])
         }
     }, [selectedGroup, setMessages])
 
