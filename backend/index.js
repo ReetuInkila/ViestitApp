@@ -169,8 +169,7 @@ app.post('/api/addgroup', (request, response) => {
         }
 
         // If successful, return success response with the ID of the newly added group
-        const newGroupId = result.id
-        response.status(201).json({ message: 'Group added successfully', id: newGroupId })
+        response.status(201).json({ message: 'Group added successfully', id: id })
     })
 })
 
