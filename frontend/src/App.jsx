@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './app.css'
-import User from './User'
-import Groups from './Groups'
-import Chat from './Chat'
-import Message from './Message'
+import User from './Header/User'
+import Groups from './Header/Groups'
+import Chat from './Chat/Chat'
+import Message from './MessageField/Message'
 import axios from 'axios'
 
 const App = () => {
