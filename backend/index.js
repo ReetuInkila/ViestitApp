@@ -50,7 +50,7 @@ app.post('/api/login', (request, response) => {
         return
     }
 
-    const encryptedUsername = CryptoJS.AES.encrypt(username, process.env.ENCRYPTION_KEY).toString()
+    const encryptedUsername = CryptoJS.HmacSHA512(username, process.env.ENCRYPTION_KEY).toString()
     const encryptedPassword = CryptoJS.HmacSHA512(password, process.env.ENCRYPTION_KEY).toString()
 
     const params = [encryptedUsername]
@@ -65,14 +65,14 @@ app.post('/api/login', (request, response) => {
         }
         const user = result[0];
         if (user.password === encryptedPassword) {
-            response.status(200).json({ message: 'Logged in successfully' });
+            response.status(200).json({ message: 'Logged in successfully', userId:user.id });
         } else {
             response.status(401).json({ error: 'Invalid username or password' });
         }
     })
 })
 
-// Endpoint to register
+// Endpoint to register user
 app.post('/api/register', (request, response) => {
     const { username, password } = request.body;
     if (!username || !password) {
@@ -81,28 +81,34 @@ app.post('/api/register', (request, response) => {
     }
 
     const id = generateUUID()
-    const encryptedUsername = CryptoJS.AES.encrypt(username, process.env.ENCRYPTION_KEY).toString()
+    const encryptedUsername = CryptoJS.HmacSHA512(username, process.env.ENCRYPTION_KEY).toString()
     const encryptedPassword = CryptoJS.HmacSHA512(password, process.env.ENCRYPTION_KEY).toString()
 
-    // Insert the new user into the database
-    const insertQuery = "INSERT INTO users (username, password) VALUES ( ?, ?, ?)";
-    db.query(insertQuery, [id, encryptedUsername, encryptedPassword], function (err, result) {
+
+    // Check if username is taken
+    db.query("SELECT username FROM users WHERE username = ?", [encryptedUsername], function (err, result) {
         if (err) {
-            // Check if the error is due to duplicate username
-            if (err.code === 'ER_DUP_ENTRY') {
-                response.status(409).json({ error: 'Username already exists' });
-                return;
-            }
-            // Handle other errors
             console.error('Error registering user:', err);
             response.status(500).json({ error: 'Failed to register user' });
             return;
         }
-
-        response.status(201).json({ message: 'User registered successfully' });
+        if(result.length>0){
+            response.status(409).json({ message: 'Username already exists' });
+        }else{
+            // Insert the new user into the database
+            const insertQuery = "INSERT INTO users (id, username, password) VALUES ( ?, ?, ?)";
+            db.query(insertQuery, [id, encryptedUsername, encryptedPassword], function (err, result) {
+                if (err) {
+                    // Handle other errors
+                    console.error('Error registering user:', err);
+                    response.status(500).json({ error: 'Failed to register user' });
+                    return;
+                }
+                response.status(201).json({ message: 'User registered successfully' });
+            });   
+        }
     });
 });
-
 
 // Endpoint to add a message to a group
 app.post('/api/sendmessage', (request, response) => {
