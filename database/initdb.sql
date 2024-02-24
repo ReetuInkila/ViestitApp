@@ -20,7 +20,7 @@ CREATE TABLE messages(
     id INT PRIMARY KEY AUTO_INCREMENT,
     groupId CHAR(36),
     sender VARCHAR(255),
-    timestamp TIMESTAMP,
+    timestamp DATETIME,
     text TEXT
 );
 INSERT INTO messages (groupId, sender, timestamp, text)

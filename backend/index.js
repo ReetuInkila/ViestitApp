@@ -121,7 +121,7 @@ app.post('/api/sendmessage', (request, response) => {
     const encryptedText = CryptoJS.AES.encrypt(text, process.env.ENCRYPTION_KEY).toString()
     const encryptedSender= CryptoJS.AES.encrypt(sender, process.env.ENCRYPTION_KEY).toString()
 
-    const message = { groupId, sender:encryptedSender, text:encryptedText } // Create message object to insert into database
+    const message = { groupId, sender:encryptedSender, timestamp:new Date(), text:encryptedText } // Create message object to insert into database
     db.query("INSERT INTO messages SET ?", message, function (err, result) {
         if (err) {
             console.error('Error adding message to the database:', err)
