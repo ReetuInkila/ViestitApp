@@ -9,6 +9,8 @@ const Login = ({ onLogin }) => {
   const [usernameReg, setUsernameReg] = useState('')
   const [passwordReg, setPasswordReg] = useState('')
   const [errorReg, setErrorReg] = useState('')
+  const [fieldTypeLogin, setFieldTypeLogin] = useState('password')
+  const [fieldTypeReg, setFieldTypeReg] = useState('password')
 
 
   const onLogIn = () => {
@@ -92,12 +94,24 @@ const Login = ({ onLogin }) => {
             <label>
                 Password:
                 <input
+                    type={fieldTypeLogin}
                     value={passwordLogin}
                     onChange={(ev) => {
                         setPasswordLogin(ev.target.value)
                         setErrorLogin('')
                     }}
                 />
+            </label>
+            <br/>
+            <label>
+                <input type="checkbox" onClick={() =>{
+                    if(fieldTypeLogin==='password'){
+                        setFieldTypeLogin('text')
+                    }else{
+                        setFieldTypeLogin('password')
+                    }
+                }}/>
+                Show Password
             </label>
             <br/>
             <label className="errorLabel">{errorLogin}</label>
@@ -121,12 +135,24 @@ const Login = ({ onLogin }) => {
             <label>
                 Password:
                 <input
+                    type={fieldTypeReg}
                     value={passwordReg}
                     onChange={(ev) => {
                         setPasswordReg(ev.target.value)
                         setErrorReg('')
                     }}
                 />
+            </label>
+            <br/>
+            <label>
+                <input type="checkbox" onClick={() =>{
+                    if(fieldTypeReg==='password'){
+                        setFieldTypeReg('text')
+                    }else{
+                        setFieldTypeReg('password')
+                    }
+                }}/>
+                Show Password
             </label>
             <br/>
             <label className="errorLabel">{errorReg}</label>
