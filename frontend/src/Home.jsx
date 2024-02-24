@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './home.css'
 import Groups from './Group/Group'
 import Chat from './Chat/Chat'
@@ -10,7 +10,6 @@ const Home = ({ user, onLogout }) => {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
 
-
     const sendMessage = (event) => {
         event.preventDefault() // Prevent the default form submission behavior
         if ( selectedGroup && message.trim() !== '') {
@@ -21,7 +20,7 @@ const Home = ({ user, onLogout }) => {
             };
             // Send the new message to the backend
             axios
-                .post(`${process.env.REACT_APP_API_URL}/sendmessage`, newMessage)
+                .post(`${process.env.REACT_APP_API_URL|| 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/sendmessage`, newMessage)
                 .then(response => {
                     const newTimestamp = response.data.timestamp
                     newMessage.timestamp = newTimestamp

@@ -43,8 +43,12 @@ You can, for example, include your reasons for choosing particular technologies 
 
 ## Running the application
 
-Include instructions for running your application locally in this section. You may additonally include a link to the application instance if you have hosted it somewhere.
-
-If the local setup is complicated or has a lot of dependencies, and you are unable to provide a hosted version, a containerized (e.g. Docker/Docker Compose or similar) way of running your application would be greatly appreciated, but is not required.
+You can use app in or you can test it locally
+```sh
+$ npm install mysqljs/mysql
+```
+```sh
+$ npm install mysqljs/mysql
+```
 
 You can create own chat group or join to group named "chitchat"
