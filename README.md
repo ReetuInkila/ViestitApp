@@ -43,12 +43,21 @@ You can, for example, include your reasons for choosing particular technologies 
 
 ## Running the application
 
-You can use app in or you can test it locally
-```sh
-$ npm install mysqljs/mysql
-```
-```sh
-$ npm install mysqljs/mysql
-```
+You can use app in 
 
-You can create own chat group or join to group named "chitchat"
+https://viestitapp.inkilareetu.fi/ 
+
+or you can test it locally after these steps.
+
+```sh
+$ git clone https://github.com/ReetuInkila/ViestitApp.git
+```
+```sh
+$ cd ViestitApp/
+```
+```sh
+$ docker compose up
+```
+```sh
+http://localhost:3000/
+```
