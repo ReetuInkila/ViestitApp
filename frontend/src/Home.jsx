@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './home.css'
 import Groups from './Group/Group'
 import Chat from './Chat/Chat'
