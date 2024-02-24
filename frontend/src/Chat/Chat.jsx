@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import './chat.css'
 
-const Chat = ({ selectedGroup, messages, setMessages }) => {
+const Chat = ({ selectedGroup, messages, setMessages, user }) => {
 
     useEffect(() => {
         if (selectedGroup) {
             axios
-                .get(`${process.env.REACT_APP_API_URL}/messages/${selectedGroup}`)
+                .get(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/messages/${selectedGroup}`)
                 .then(response => {
                     setMessages(response.data)
                 })
@@ -33,8 +33,7 @@ const Chat = ({ selectedGroup, messages, setMessages }) => {
     return (
         <div className="chat">
             {messages.map((message, i)=>(
-                <li key={i}>
-                    
+                <li key={i} className={message.sender === user ? 'own' :'unknown'}>
                     {message.sender}: {message.text}
                 <p className='timestamp'>{formatTimestamp(message.timestamp)}</p>
                 </li>

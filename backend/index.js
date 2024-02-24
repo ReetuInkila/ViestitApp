@@ -121,7 +121,7 @@ app.post('/api/sendmessage', (request, response) => {
     const encryptedText = CryptoJS.AES.encrypt(text, process.env.ENCRYPTION_KEY).toString()
     const encryptedSender= CryptoJS.AES.encrypt(sender, process.env.ENCRYPTION_KEY).toString()
 
-    const message = { groupId, sender:encryptedSender, text:encryptedText } // Create message object to insert into database
+    const message = { groupId, sender:encryptedSender, timestamp:new Date(), text:encryptedText } // Create message object to insert into database
     db.query("INSERT INTO messages SET ?", message, function (err, result) {
         if (err) {
             console.error('Error adding message to the database:', err)
@@ -156,8 +156,10 @@ app.post('/api/addgroup', (request, response) => {
     // Generate UUID
     const id = generateUUID()
 
+    const encryptedName = CryptoJS.HmacSHA512(name, process.env.ENCRYPTION_KEY).toString()
+
     // Create group object to insert into database
-    const group = { id, name }
+    const group = { id:id, name:encryptedName }
 
     // Insert group into database
     db.query("INSERT INTO \`groups\` SET ?", group, function (err, result) {
@@ -178,8 +180,10 @@ app.post('/api/addgroup', (request, response) => {
 app.get('/api/groupid/:name', (request, response) => {
     const groupName = request.params.name // Extract group name from request parameters
 
+    const encryptedName = CryptoJS.HmacSHA512(groupName, process.env.ENCRYPTION_KEY).toString()
+
     // Query the database to find the group ID by name
-    db.query("SELECT id FROM \`groups\` WHERE name = ?;", groupName, function (err, result) {
+    db.query("SELECT id FROM \`groups\` WHERE name = ?;", encryptedName, function (err, result) {
         if (err) {
             // If there's an error, log it and return an error response
             console.error('Error fetching group ID from the database:', err)
