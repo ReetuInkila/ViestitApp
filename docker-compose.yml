@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./database
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test
+    restart: always
+
+  backend:
+    build: ./backend
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+      ENCRYPTION_KEY: verySecretKey
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api
+    restart: always
+    ports:
+      - "3000:3000"
+

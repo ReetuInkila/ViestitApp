@@ -160,7 +160,7 @@ app.post('/api/addgroup', (request, response) => {
     const group = { id, name }
 
     // Insert group into database
-    db.query("INSERT INTO groups SET ?", group, function (err, result) {
+    db.query("INSERT INTO \`groups\` SET ?", group, function (err, result) {
         if (err) {
             // If there's an error, log it and return an error response
             console.error('Error adding group to the database:', err)
@@ -179,7 +179,7 @@ app.get('/api/groupid/:name', (request, response) => {
     const groupName = request.params.name // Extract group name from request parameters
 
     // Query the database to find the group ID by name
-    db.query("SELECT id FROM groups WHERE name = ?", groupName, function (err, result) {
+    db.query("SELECT id FROM \`groups\` WHERE name = ?;", groupName, function (err, result) {
         if (err) {
             // If there's an error, log it and return an error response
             console.error('Error fetching group ID from the database:', err)
