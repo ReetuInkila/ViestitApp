@@ -36,9 +36,9 @@ const Home = ({ user, onLogout }) => {
 
     return (
         <div className='content'>
-            <Groups setSelectedGroup={setSelectedGroup} onLogout={onLogout}/>
-            <Chat selectedGroup={selectedGroup} messages={messages} setMessages={setMessages}/>
-            <Message message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+            <Groups setSelectedGroup={setSelectedGroup} onLogout={onLogout} />
+            <Chat selectedGroup={selectedGroup} messages={messages} setMessages={setMessages} user={user} />
+            <Message message={message} setMessage={setMessage} sendMessage={sendMessage} />
         </div>
     )
 }

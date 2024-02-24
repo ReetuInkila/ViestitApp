@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import './chat.css'
 
-const Chat = ({ selectedGroup, messages, setMessages }) => {
+const Chat = ({ selectedGroup, messages, setMessages, user }) => {
 
     useEffect(() => {
         if (selectedGroup) {
@@ -33,8 +33,7 @@ const Chat = ({ selectedGroup, messages, setMessages }) => {
     return (
         <div className="chat">
             {messages.map((message, i)=>(
-                <li key={i}>
-                    
+                <li key={i} className={message.sender === user ? 'own' :'unknown'}>
                     {message.sender}: {message.text}
                 <p className='timestamp'>{formatTimestamp(message.timestamp)}</p>
                 </li>
