@@ -1,99 +1,138 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import './login.css'
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [usernameLogin, setUsernameLogin] = useState('')
+  const [passwordLogin, setPasswordLogin] = useState('')
+  const [errorLogin, setErrorLogin] = useState('')
+  const [usernameReg, setUsernameReg] = useState('')
+  const [passwordReg, setPasswordReg] = useState('')
+  const [errorReg, setErrorReg] = useState('')
 
 
   const onLogIn = () => {
     // Reset any previous error messages
-    setError('');
-    setError('');
+    setErrorLogin('');
+    setErrorLogin('');
 
     // Validate username and password
-    if (!username) {
-      setError('Username is required');
+    if (!usernameLogin) {
+      setErrorLogin('Username is required');
       return;
     }
-    if (!password) {
-      setError('Password is required');
+    if (!passwordLogin) {
+      setErrorLogin('Password is required');
       return;
     }
 
     const user = {
-        username: username,
-        password: password
+        username: usernameLogin,
+        password: passwordLogin
     };
     axios
         .post(`${process.env.REACT_APP_API_URL}/login`, user)
         .then(response => {
-            setError(response.data.message)
-            onLogin(username)
-            setUsername('')
-            setPassword('')
+            setErrorLogin(response.data.message)
+            onLogin(usernameLogin)
+            setUsernameLogin('')
+            setPasswordLogin('')
         })
         .catch(error => {
-            setError(error.response.data.error)
+            setErrorLogin(error.response.data.error)
         })
   };
 
   const onSignUp = () => {
     // Reset any previous error messages
-    setError('');
-    setError('');
+    setErrorReg('');
+    setErrorReg('');
 
     // Validate username and password
-    if (!username) {
-      setError('Username is required');
+    if (!usernameReg) {
+      setErrorReg('Username is required');
       return;
     }
-    if (!password) {
-      setError('Password is required');
+    if (!passwordReg) {
+      setErrorReg('Password is required');
       return;
     }
 
     const newUser = {
-        username: username,
-        password: password
+        username: usernameReg,
+        password: passwordReg
     };
     axios
         .post(`${process.env.REACT_APP_API_URL}/register`, newUser)
         .then(response => {
-            setError(response.data.message)
-            setUsername('')
-            setPassword('')
+            setErrorReg(response.data.message)
+            setUsernameReg('')
+            setPasswordReg('')
         })
         .catch(error => {
-            setError(error.response.data.message)
+            setErrorReg(error.response.data.message)
         })
   }
 
   return (
     <div>
-        <h2>Login</h2>
-        <input
-          value={username}
-          placeholder="Enter your username here"
-          onChange={(ev) => {
-            setUsername(ev.target.value)
-            setError('')
-        }}
-        />
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => {
-            setPassword(ev.target.value)
-            setError('')
-          }}
-        />
-        <br/>
-        <label className="errorLabel">{error}</label>
-        <br/>
-        <input type="button" onClick={onLogIn} value={'Log in'} />
-        <input type="button" onClick={onSignUp} value={'Sign up'} />
+        <h1>Login to ViestitApp</h1>
+        <fieldset>
+            <label>
+                Username: 
+                <input
+                    value={usernameLogin}
+                    onChange={(ev) => {
+                        setUsernameLogin(ev.target.value)
+                        setErrorLogin('')
+                    }}
+                />
+            </label>
+            <br/>
+            <label>
+                Password:
+                <input
+                    value={passwordLogin}
+                    onChange={(ev) => {
+                        setPasswordLogin(ev.target.value)
+                        setErrorLogin('')
+                    }}
+                />
+            </label>
+            <br/>
+            <label className="errorLabel">{errorLogin}</label>
+            <br/>
+            <button onClick={onLogIn}>Log in</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Register</legend>
+            <label>
+                Username: 
+                <input
+                    value={usernameReg}
+                    onChange={(ev) => {
+                        setUsernameReg(ev.target.value)
+                        setErrorReg('')
+                    }}
+                />
+            </label>
+            <br/>
+            <label>
+                Password:
+                <input
+                    value={passwordReg}
+                    onChange={(ev) => {
+                        setPasswordReg(ev.target.value)
+                        setErrorReg('')
+                    }}
+                />
+            </label>
+            <br/>
+            <label className="errorLabel">{errorReg}</label>
+            <br/>
+            <button onClick={onSignUp}>Register</button>
+        </fieldset>
     </div>
   )
 }

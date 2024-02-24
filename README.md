@@ -29,7 +29,7 @@ In order to improve overall privacy and security, even if someone has access to 
 These are additional requirements, and you may choose to implement all, none, or only a subset of them. you may need to extend some of the Level I requirenments for reading and sending messages to be able to implement all of these.
 
 - [x] Which users there are (the screen names).
-- [x] Which groups there are (the names).
+- [ ] Which groups there are (the names).
 - [x] Who sent messages to which group.
 - [x] What the messages are (their text content).
 - [ ] How many messages are there on average per user and/or group.
@@ -46,3 +46,5 @@ You can, for example, include your reasons for choosing particular technologies 
 Include instructions for running your application locally in this section. You may additonally include a link to the application instance if you have hosted it somewhere.
 
 If the local setup is complicated or has a lot of dependencies, and you are unable to provide a hosted version, a containerized (e.g. Docker/Docker Compose or similar) way of running your application would be greatly appreciated, but is not required.
+
+You can create own chat group or join to group named "chitchat"
