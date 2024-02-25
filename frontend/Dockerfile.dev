@@ -1,0 +1,20 @@
+# Use the slim version of the node 14 image as our base
+FROM node:14-slim
+
+# Create and set the working directory
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json to leverage Docker layer caching for faster builds
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose port 3000 for development server
+EXPOSE 3000
+
+# Command to run the development server
+CMD ["npm", "start"]
