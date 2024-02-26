@@ -9,7 +9,7 @@ on:
     - '.github/workflows/frontend.yml'
 
 env:
-  PORT: 8080
+  PORT: 3000
   LOCATION: europe-north1
   AUTO_SCALING: 1
   TIMEOUT: 8s
