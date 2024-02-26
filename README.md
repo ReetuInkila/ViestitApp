@@ -47,7 +47,7 @@ You can use app in
 
 https://viestitapp.inkilareetu.fi/ 
 
-or you can test it locall testing enviroment after these steps.
+or you can test it local testing enviroment after these steps.
 
 ```sh
 $ git clone https://github.com/ReetuInkila/ViestitApp.git
@@ -62,3 +62,5 @@ Navigate to:
 ```sh
 http://localhost:3000/
 ```
+
+In local testing enviroment there is generated example group named 'chitchat' where you can join after succesfull loggin.
