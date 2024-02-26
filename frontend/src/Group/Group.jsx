@@ -2,9 +2,15 @@ import './group.css'
 import { useState } from 'react'
 import axios from 'axios'
 
+/**
+ * Group selecting field component
+ * @param {function} setSelectedGroup - Function to set the selected group
+ * @param {function} onLogout - Function to handle logout
+ */
 const Groups = ({ setSelectedGroup, onLogout }) => {
     const [groupName, setGroupName] = useState('')
 
+    // Function to handle group selection
     const handleGroup = () => {
         if (groupName.trim() !== '') {
             const groupData = {
@@ -26,7 +32,7 @@ const Groups = ({ setSelectedGroup, onLogout }) => {
                             .catch(error => {
                                 console.error('Error adding group:', error)
                             })
-                    }else{
+                    } else {
                         setSelectedGroup(null)
                         setGroupName('')
                     }
@@ -35,8 +41,8 @@ const Groups = ({ setSelectedGroup, onLogout }) => {
     }
 
     return (
-        <div className="selectGroup"> 
-            <input 
+        <div className="selectGroup">
+            <input
                 id="group"
                 value={groupName}
                 placeholder="Group name"
@@ -45,7 +51,7 @@ const Groups = ({ setSelectedGroup, onLogout }) => {
             <button onClick={handleGroup}>Select</button>
             <button id='logout' onClick={onLogout}>Logout</button>
         </div>
-    );
-};
+    )
+}
 
-export default Groups;
+export default Groups
