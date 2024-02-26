@@ -37,9 +37,9 @@ These are additional requirements, and you may choose to implement all, none, or
 
 ### Additional Remarks or Feautres
 
-If your implementation has any additional features or you wish to highlight something or explain your choices you may use this section to do so.
+My goal was to make a simple, but reliable message application. But to be honest I haven't tested the app enough to be 100% sure it's bug free.
 
-You can, for example, include your reasons for choosing particular technologies or using some libraries here if you like.
+I ended up with the React frontend application due to my own preferences and I wanted to implement the Node.js server because I have been studying the subject recently and I wanted a practice assignment of subject.
 
 ## Running the application
 
@@ -47,7 +47,7 @@ You can use app in
 
 https://viestitapp.inkilareetu.fi/ 
 
-or you can test it locally after these steps.
+or you can test it locall testing enviroment after these steps.
 
 ```sh
 $ git clone https://github.com/ReetuInkila/ViestitApp.git
@@ -58,6 +58,7 @@ $ cd ViestitApp/
 ```sh
 $ docker compose up
 ```
+Navigate to:
 ```sh
 http://localhost:3000/
 ```
