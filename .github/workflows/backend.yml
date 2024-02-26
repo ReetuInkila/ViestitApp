@@ -58,4 +58,4 @@ jobs:
         run: gcloud run deploy ${{env.APP_NAME}} --image="gcr.io/${{env.PROJECT_ID}}/${{env.APP_NAME}}:${{ github.sha }}" 
              --port=${{env.PORT}} --allow-unauthenticated --project=${{env.PROJECT_ID}} --region=${{env.LOCATION}} --memory=${{env.MEMORY}}
              --timeout=${{env.TIMEOUT}} --memory=${{env.MEMORY}} --max-instances=${{env.MAX_REQUESTS_PER_CONTAINER}} --min-instances=${{env.MIN_REQUESTS_PER_CONTAINER}} 
-             --set-env-vars NODE_ENV=production --concurrency=${{env.AUTO_SCALING}}
+             --set-env-vars "NODE_ENV=production,ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} --concurrency=${{env.AUTO_SCALING}}
