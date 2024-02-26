@@ -1,28 +1,44 @@
+/*
+Database Schema and Data Initialization Script
+This script creates tables for storing groups, users, and messages in a MySQL database.
+It also inserts sample data into these tables.
+Sample data only used in local testing enviroment!
+*/
+
+-- Create a table to store groups
 CREATE TABLE `groups`(
-    id CHAR(36) PRIMARY KEY, 
-    name VARCHAR(255)
+    id CHAR(36) PRIMARY KEY,    -- Unique identifier for the group
+    name VARCHAR(255)           -- Name of the group
 );
+
+-- Insert sample data into the groups table
 INSERT INTO `groups` (id, name)
 VALUES
     ('7c60877f-d00e-4321-b8a7-d2d4d06195af', '397ba23209b6b298315e88adda88b4d478b54415e67202157ac6f6c69da336a43cae46344d7ef444193a4794202a5a158442c19ed99a7dd2ad3582c894975239');
 
+-- Create a table to store users
 CREATE TABLE users(
-    id CHAR(36) PRIMARY KEY, 
-    username VARCHAR(255),
-    password VARCHAR(255)
+    id CHAR(36) PRIMARY KEY,    -- Unique identifier for the user
+    username VARCHAR(255),      -- User's username
+    password VARCHAR(255)       -- User's password (Note: This should be encrypted in a real application)
 );
+
+-- Insert sample data into the users table
 INSERT INTO users (id, username, password) 
 VALUES
     ('efa8c647-81f2-4512-bbf1-601526006939', 'ef2c8fde52eaba2e9b86f2c42b10eb72fc9f3b7aebb410cf53068870110fc1f3c7e20cb7fec56a6d9e41a7ce6ae907548f3b2fced13c22d281ee37f8c6b60d4d', 'cf2ed8f4580c8f3aaf03bdd2e3b5046a806b7ab303531835b63af92fe770232e13421641ff547098447d6365804897861962d1e8a684697c9fcda0de9dcef5b4'),
     ('1b7f80bb-7985-419d-aed3-25ea8ea985fa', 'fa670be93ae02a1af6a02b35b248d85d93782f3d11ad52b2bbf2411638ec4dd4b36ad8bc8015725b875e53fb480e55708670e568214699f38dd20210c8514e28', 'ac8bff9b8ff59f39677b0f6e9d1161d5fdbf3fa4466e5bad7f478f84f59c878aab13888bf4e7247122a57cac001ed3bb31c81a057ed45438a30cae63ea1c5e71');
 
+-- Create a table to store messages
 CREATE TABLE messages(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    groupId CHAR(36),
-    sender VARCHAR(255),
-    timestamp DATETIME,
-    text TEXT
+    id INT PRIMARY KEY AUTO_INCREMENT,    -- Unique identifier for the message
+    groupId CHAR(36),                     -- ID of the group to which the message belongs
+    sender VARCHAR(255),                  -- Sender of the message
+    timestamp DATETIME,                   -- Timestamp of the message
+    text TEXT                             -- Content of the message
 );
+
+-- Insert sample data into the messages table
 INSERT INTO messages (groupId, sender, timestamp, text)
 VALUES
     ('7c60877f-d00e-4321-b8a7-d2d4d06195af', 'U2FsdGVkX1+2FbvG2sHjaf6zb/7VALsGX4Hd7HrXW8U=', NOW(), 'U2FsdGVkX1+NQmZW5qzIy1J9bo601Cm4+TuCpOFxdKZKNZIyPlVAvsA+9GqAaPHE'),

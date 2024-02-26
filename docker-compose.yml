@@ -1,6 +1,10 @@
+# Docker Compose Configuration
+# This file defines services for a database, backend server, and frontend application.
+
 version: '3.8'
 
 services:
+  # Database service using a custom Dockerfile located in the ./database directory
   db:
     build: ./database
     environment:
@@ -8,6 +12,7 @@ services:
       MYSQL_DATABASE: test
     restart: always
 
+  # Backend service using a custom Dockerfile located in the ./backend directory
   backend:
     build: ./backend
     environment:
@@ -17,18 +22,18 @@ services:
       MYSQL_HOST: db
       ENCRYPTION_KEY: verySecretKey
     ports:
-      - "8080:8080"
+      - "8080:8080"  # Expose port 8080 for external access
     depends_on:
-      - db
-    restart: on-failure
+      - db  # Ensure the database service is started before the backend
+    restart: on-failure  # Restart the service on failure
 
+  # Frontend service using a custom Dockerfile located in the ./frontend directory
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
       args:
-        REACT_APP_API_URL: http://localhost:8080/api
-    restart: always
+        REACT_APP_API_URL: http://localhost:8080/api  # Pass environment variable to frontend build
+    restart: always  # Restart the service always
     ports:
-      - "3000:3000"
-
+      - "3000:3000"  # Expose port 3000 for external access

@@ -1,3 +1,9 @@
+/**
+ * ViestitApp REST API
+ * This file defines endpoints for user authentication, user registration, messaging, group management, and message retrieval.
+ * It utilizes Express.js for routing, MySQL for database interaction, and CryptoJS for encryption and decryption.
+ */
+// Import necessary modules
 const express = require('express')
 const cors = require('cors')
 const db = require('./db') // Import the database connection
@@ -9,10 +15,12 @@ const app = express()
 // Middleware to parse JSON bodies
 app.use(express.json())
 
+// CORS configuration to allow requests from specified origins
 app.use(cors({
     origin: ['http://localhost:3000', 'https://viestit-frontend-rx347ght6q-lz.a.run.app', 'https://viestitapp.inkilareetu.fi']
 }))
 
+// Root endpoint to verify server availability
 app.get('/', (request, response) => {
     response.send('ViestitApp REST API')
 })
@@ -83,7 +91,6 @@ app.post('/api/register', (request, response) => {
     const id = generateUUID()
     const encryptedUsername = CryptoJS.HmacSHA512(username, process.env.ENCRYPTION_KEY).toString()
     const encryptedPassword = CryptoJS.HmacSHA512(password, process.env.ENCRYPTION_KEY).toString()
-
 
     // Check if username is taken
     db.query("SELECT username FROM users WHERE username = ?", [encryptedUsername], function (err, result) {
@@ -230,23 +237,25 @@ app.get('/api/messages/:groupId', (request, response) => {
     })
 })
 
+// Set the server to listen on a specified port
 const PORT = 8080
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
+// Function to generate UUID (Universally Unique Identifier)
 function generateUUID() { // Public Domain/MIT
-    var d = new Date().getTime();//Timestamp
-    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+    var d = new Date().getTime()//Timestamp
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0//Time in microseconds since page-load or 0 if unsupported
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16;//random number between 0 and 16
+        var r = Math.random() * 16//random number between 0 and 16
         if(d > 0){//Use timestamp until depleted
-            r = (d + r)%16 | 0;
-            d = Math.floor(d/16);
+            r = (d + r)%16 | 0
+            d = Math.floor(d/16)
         } else {//Use microseconds since page-load if supported
-            r = (d2 + r)%16 | 0;
-            d2 = Math.floor(d2/16);
+            r = (d2 + r)%16 | 0
+            d2 = Math.floor(d2/16)
         }
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+    })
 }
