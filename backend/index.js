@@ -12,6 +12,7 @@ require('dotenv').config()
 
 const app = express()
 
+app.use(express.static('build'))
 // Middleware to parse JSON bodies
 app.use(express.json())
 
@@ -21,7 +22,7 @@ app.use(cors({
 }))
 
 // Root endpoint to verify server availability
-app.get('/', (request, response) => {
+app.get('/api', (request, response) => {
     response.send('ViestitApp REST API')
 })
 

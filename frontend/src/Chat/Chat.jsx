@@ -14,7 +14,7 @@ const Chat = ({ selectedGroup, messages, setMessages, user }) => {
     useEffect(() => {
         if (selectedGroup) {
             axios
-                .get(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/messages/${selectedGroup}`)
+                .get(`${process.env.REACT_APP_API_URL || 'https://viestitapp.inkilareetu.fi/api'}/messages/${selectedGroup}`)
                 .then(response => {
                     setMessages(response.data)
                 })

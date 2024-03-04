@@ -60,7 +60,7 @@ $ docker compose up
 ```
 Navigate to:
 ```sh
-http://localhost:3000/
+http://localhost:8080/
 ```
 
 In local testing enviroment there is generated example group named 'chitchat' where you can join after succesfull loggin.

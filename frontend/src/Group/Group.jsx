@@ -17,14 +17,14 @@ const Groups = ({ setSelectedGroup, onLogout }) => {
                 name: groupName.trim()
             }
             axios
-                .get(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/groupid/${groupName}`)
+                .get(`api/groupid/${groupName}`)
                 .then(response => {
                     setSelectedGroup(response.data.groupId)
                 })
                 .catch(error => {
                     if (window.confirm(`No group named ${groupName}. Do you want to add it?`)) {
                         axios
-                            .post(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/addgroup`, groupData)
+                            .post(`api/addgroup`, groupData)
                             .then(response => {
                                 const newGroupId = response.data.id // Extract ID from response
                                 setSelectedGroup(newGroupId)

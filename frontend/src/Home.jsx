@@ -28,7 +28,7 @@ const Home = ({ user, onLogout }) => {
         text: message
       }
       axios
-        .post(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/sendmessage`, newMessage)
+        .post(`api/sendmessage`, newMessage)
         .then(response => {
           const newTimestamp = response.data.timestamp
           newMessage.timestamp = newTimestamp

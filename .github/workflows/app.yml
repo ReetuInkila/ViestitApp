@@ -5,7 +5,8 @@ on:
     - main
     paths:
     - 'backend/**'
-    - '.github/workflows/backend.yml'
+    - 'frontend/**'
+    - '.github/workflows/app.yml'
 
 env:
   PORT: 8080
@@ -17,7 +18,7 @@ env:
   MAX_REQUESTS_PER_CONTAINER: 10
   MIN_REQUESTS_PER_CONTAINER: 0
   PROJECT_ID: viestitapp
-  APP_NAME: viestit-backend
+  APP_NAME: viestitapp
 
 jobs:
   build:
@@ -40,8 +41,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./
+          file: ./Dockerfile
           push: false
           tags: |-
             gcr.io/${{env.PROJECT_ID}}/${{env.APP_NAME}}:${{ github.sha }} 

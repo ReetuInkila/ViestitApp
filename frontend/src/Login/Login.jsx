@@ -37,7 +37,7 @@ const Login = ({ onLogin }) => {
       password: passwordLogin
     }
     axios
-      .post(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/login`, user)
+      .post(`api/login`, user)
       .then(response => {
         setErrorLogin(response.data.message)
         onLogin(usernameLogin)
@@ -70,7 +70,7 @@ const Login = ({ onLogin }) => {
       password: passwordReg
     }
     axios
-      .post(`${process.env.REACT_APP_API_URL || 'https://viestit-backend-rx347ght6q-lz.a.run.app/api'}/register`, newUser)
+      .post(`api/register`, newUser)
       .then(response => {
         setErrorReg(response.data.message)
         setUsernameReg('')
