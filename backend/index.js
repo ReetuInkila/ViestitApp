@@ -13,13 +13,9 @@ require('dotenv').config()
 const app = express()
 
 app.use(express.static('build'))
+
 // Middleware to parse JSON bodies
 app.use(express.json())
-
-// CORS configuration to allow requests from specified origins
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://viestit-frontend-rx347ght6q-lz.a.run.app', 'https://viestitapp.inkilareetu.fi']
-}))
 
 // Root endpoint to verify server availability
 app.get('/api', (request, response) => {
