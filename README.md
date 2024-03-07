@@ -43,11 +43,7 @@ I ended up with the React frontend application due to my own preferences and I w
 
 ## Running the application
 
-You can use app in 
-
-https://viestitapp.inkilareetu.fi/ 
-
-or you can test it local testing enviroment after these steps.
+You can test app in local testing enviroment after these steps.
 
 ```sh
 $ git clone https://github.com/ReetuInkila/ViestitApp.git
